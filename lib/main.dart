@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_application_no/FlutterLocalNotification.dart';
@@ -66,14 +67,13 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {
+        onPressed: () async {
           _incrementCounter();
-          Timer(const Duration(seconds: 3), () {
-            FlutterLocalNotification().showNotification(
-              title: 'قوم',
-              body: "ذكر يا عرث"
-            );
-          });
+          FlutterLocalNotification().showNotification(
+            id: 1,
+            title: "title",
+            body: "body",
+          );
         },
         tooltip: 'Increment',
         child: const Icon(Icons.add),

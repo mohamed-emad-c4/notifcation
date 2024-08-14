@@ -1,13 +1,12 @@
-// File: android/build.gradle
-
 buildscript {
+    ext.kotlin_version = '1.7.10'  // تأكد من استخدام إصدار حديث من Kotlin
     repositories {
         google()
         mavenCentral()
     }
     dependencies {
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath 'com.android.tools.build:gradle:7.3.1'
-        // يمكنك إضافة أي تبعيات أخرى هنا
     }
 }
 
