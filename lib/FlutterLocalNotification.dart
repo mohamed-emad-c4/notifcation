@@ -1,10 +1,14 @@
 import 'dart:developer';
+import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_timezone/flutter_timezone.dart';
 import 'package:timezone/timezone.dart' as tz;
 import 'package:timezone/data/latest_all.dart' as tz;
 
 Future<void> backgroundHandler(NotificationResponse details) async {
+  log('Notification tapped in the background: ${details.payload}');
+}
+Future<void> frontHandler(NotificationResponse details) async {
   log('Notification tapped in the background: ${details.payload}');
 }
 
@@ -26,9 +30,7 @@ class FlutterLocalNotification {
     await flutterLocalNotification.initialize(
       initializationSettings,
       onDidReceiveBackgroundNotificationResponse: backgroundHandler,
-      onDidReceiveNotificationResponse: (details) {
-        log('Notification tapped in the foreground: ${details.id}');
-      },
+      onDidReceiveNotificationResponse: frontHandler,
     );
   }
 
@@ -42,12 +44,13 @@ class FlutterLocalNotification {
       title,
       body,
       payload: 'body',
-      const NotificationDetails(
+       NotificationDetails(
         android: AndroidNotificationDetails(
           'id1',
           'basic channel',
           importance: Importance.max,
           priority: Priority.high,
+          sound: RawResourceAndroidNotificationSound('pop.wav'.split('.').first),
         ),
       ),
     );
@@ -99,5 +102,9 @@ class FlutterLocalNotification {
       uiLocalNotificationDateInterpretation:
           UILocalNotificationDateInterpretation.absoluteTime,
     );
+  }
+
+  Future<void> cancelNotification({required int id}) async {
+    await flutterLocalNotification.cancel(id);
   }
 }

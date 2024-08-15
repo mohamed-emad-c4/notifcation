@@ -69,10 +69,13 @@ class _MyHomePageState extends State<MyHomePage> {
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
           _incrementCounter();
-          FlutterLocalNotification().showNotification(
-            id: 1,
-            title: "title",
-            body: "body",
+          Timer(
+            const Duration(seconds: 2),
+            () => FlutterLocalNotification().showNotification(
+              id: 1,
+              title: "title",
+              body: "body",
+            ),
           );
         },
         tooltip: 'Increment',
